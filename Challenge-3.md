@@ -60,7 +60,7 @@ Dependencies are external libraries that your project needs to function. They ar
         "price": 300.00
     }
 ]
-
+```
 ### 5. Read and Write to the JSON file 
 ### 6. Perform CRUD operations using REST Controller 
 GET, PUT, POST, DELETE using the annotations 
