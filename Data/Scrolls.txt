@@ -3,4 +3,8 @@ Misleading information is everywhere.
 {*The first secret is the key to the first door.*}
 Beware of the Eldorian traps.
 {*The second secret lies beneath the Eldorian tree.*}
+Lookout for the Eldorian door with a cross sign.
+For opening the door you would need the 3rd secret. 
+{*The third secret can be deciphered from the signs engraved on the eldorian door*}
+Open the door.
 End of scroll.
