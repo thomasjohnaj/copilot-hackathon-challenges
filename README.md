@@ -79,15 +79,6 @@ Run:
 **For C++**
 - [Install cmake](https://cmake.org/download/)
 
-## Labs instructions
-
-- [Node Server](./exercisefiles/node/README.md)
-- [.NET Web API](./exercisefiles/dotnet/README.md)
-- [Java Spring Boot](./exercisefiles/springboot/README.md)
-- [Java Quarkus](./exercisefiles/quarkus/README.md)
-- [Python Data Engineer](./exercisefiles/dataengineer/README.md)
-- [Python Data Scientist](./exercisefiles/datascientist/README.md)
-- [C++](./exercisefiles/c++/README.md)
 
 ## Challenges instructions
 
