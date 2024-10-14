@@ -4,7 +4,6 @@ Demo project for running labs to evaluate Copilot viability
 
 - [Goal](#goal)
 - [Pre-requisites](#pre-requisites)
-- [Work with Github Codespaces](#work-with-github-codespaces)
 - [Work locally](#work-locally)
 - [Instructions](#instructions)
 - [Quick Links](#quick-links)
