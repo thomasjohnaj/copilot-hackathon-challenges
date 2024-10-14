@@ -30,7 +30,7 @@ Remember:
 
 **GitHub Copilot access**
 
-If you still do not have an active Copilot license, a 30 day trial can be requested here: https://github.com/github-copilot/signup.
+Particpants should hve access to copilot licenses. If you still do not have an active Copilot license, request your copilot admin to assign you a copilot seat.
 
 
 ### IDE Extensions
