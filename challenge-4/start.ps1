@@ -12,20 +12,24 @@ function Get-CRC32Checksum {
     $crc = $_
     0..7 | ForEach-Object {
       if ($crc -band 1) {
-        $crc = (-band ([math]::bitshiftright($crc, 1) -bxor 0xEDB88320))
+        $crc = ($crc -shr 1) -bxor 0xEDB88320
       } else {
-        $crc = [math]::bitshiftright($crc, 1)
+        $crc = $crc -shr 1
       }
     }
     $crc
   })
 
   $crc32 = 0xFFFFFFFF
-  [System.IO.File]::OpenRead($FilePath).ReadByte() | ForEach-Object {
-    $byte = $_
-    $crc32 = (-bxor ([math]::bitshiftright($crc32, 8) -bxor $crc32Table[($crc32 -bxor $byte) -band 0xFF]))
+  $fileStream = [System.IO.File]::OpenRead($FilePath)
+  try {
+    while (($byte = $fileStream.ReadByte()) -ne -1) {
+      $crc32 = ($crc32 -shr 8) -bxor $crc32Table[($crc32 -bxor $byte) -band 0xFF]
+    }
+  } finally {
+    $fileStream.Close()
   }
 
-  $crc32 = -bxor $crc32
-  return "{0:X8}" -f $crc32
+  $crc32 = $crc32 -bxor 0xFFFFFFFF
+  return "{0:X8}" -f [System.BitConverter]::ToUInt32([BitConverter]::GetBytes($crc32), 0)
 }
