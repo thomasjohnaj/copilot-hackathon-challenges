@@ -9,22 +9,22 @@ function Get-CRC32Checksum {
   }
 
   $crc32Table = @(0..255 | ForEach-Object {
-    $crc = $_
+    [uint32]$crc = $_
     0..7 | ForEach-Object {
       if ($crc -band 1) {
-        $crc = ($crc -shr 1) -bxor 0xEDB88320
+        $crc = [uint32]([uint32]($crc) -shr 1) -bxor 0xEDB88320
       } else {
-        $crc = $crc -shr 1
+        $crc = [uint32]($crc -shr 1)
       }
     }
     $crc
   })
 
-  $crc32 = 0xFFFFFFFF
+  [uint32]$crc32 = 4294967295
   $fileStream = [System.IO.File]::OpenRead($FilePath)
   try {
     while (($byte = $fileStream.ReadByte()) -ne -1) {
-      $crc32 = ($crc32 -shr 8) -bxor $crc32Table[($crc32 -bxor $byte) -band 0xFF]
+      $crc32 = [uint32]([uint32]($crc32) -shr 8) -bxor $crc32Table[[uint32]($crc32 -bxor $byte) -band 0xFF]
     }
   } finally {
     $fileStream.Close()
