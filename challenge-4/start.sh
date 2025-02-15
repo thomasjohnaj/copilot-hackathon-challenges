@@ -22,10 +22,23 @@ function get_crc32_checksum {
     fi
 
     local crc32=0xFFFFFFFF
-    while IFS= read -r hex; do
-        local dec=$((16#$hex))
-        crc32=$(( (crc32 >> 8) ^ crc32_table[((crc32 ^ dec) & 0xFF)] ))
-    done < <(xxd -p -l 1048576 -c1 "$file_path")
+    # Create Perl array string for the CRC32 table
+    local perl_table="["
+    for i in {0..255}; do
+        perl_table+="${crc32_table[$i]},"
+    done
+    perl_table="${perl_table%,}]"
+
+    crc32=$(perl -e '
+        my $crc = '$crc32';
+        my @table = @{'$perl_table'};
+        while (read(STDIN, $buffer, 4096)) {
+            foreach my $byte (split //, $buffer) {
+                $crc = (($crc >> 8) & 0xFFFFFFFF) ^ $table[($crc ^ ord($byte)) & 0xFF];
+            }
+        }
+        print $crc;
+    ' < "$file_path")
 
     crc32=$(( crc32 ^ 0xFFFFFFFF ))
     printf "%08X\n" $crc32
