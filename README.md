@@ -2,11 +2,13 @@
 
 Demo project for running labs to evaluate Copilot viability
 
-- [Goal](#goal)
-- [Pre-requisites](#pre-requisites)
-- [Work locally](#work-locally)
-- [Instructions](#instructions)
-- [Quick Links](#quick-links)
+- [GitHub Copilot Hackathon](#github-copilot-hackathon)
+  - [Goal](#goal)
+  - [Pre-requisites](#pre-requisites)
+    - [IDE Extensions](#ide-extensions)
+    - [Work locally](#work-locally)
+  - [Challenges instructions](#challenges-instructions)
+  - [Quick Links](#quick-links)
 
 ## Goal
 
@@ -85,7 +87,14 @@ Run:
 - [Clocks of Tempora](./Challenge-1.md) 
 - [The Scrolls of Eldoria](./Challenge-2.md)
 - [API Development and CRUD Operations](./Challenge-3.md)
+- [Convert powershellscript to bash](./Challenge-4.md)
 
+The challenges can be categized into several core functions of Github Copilot, which you can consider to choose, which are most effective for your individual learning experience:
+
+![Focus areas Clocks of Tempora](Images/focus-challenge-1.png)
+![The Scrolls of Eldoria](Images/focus-challenge-2.png)
+![API Development and CRUD Operations](Images/focus-challenge-3.png)
+![Convert powershellscript to bash](Images/focus-challenge-4.png)
 ## Quick Links 
 
 1. [About GitHub Copilot](https://docs.github.com/en/copilot/about-github-copilot)
