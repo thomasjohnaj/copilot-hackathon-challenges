@@ -21,23 +21,27 @@ function Get-CRC32Checksum {
   })
 
   $crc32 = 0xFFFFFFFF
-  [System.IO.File]::OpenRead($FilePath).ReadByte() | {
-    $byte = $_
-    $crc32 = (&$crc32 -shr -bxor $crc32Table)
+  $fileStream = [System.IO.File]::OpenRead($FilePath)
+  try {
+    while (($byte = $fileStream.ReadByte()) -ne -1) {
+      $crc32 = ($crc32 -shr 8) -bxor $crc32Table[($crc32 -bxor $byte) -band 0xFF]
+    }
+  } finally {
+    $fileStream.Close()
   }
 
   $crc32 = $crc32 -bxor 0xFFFFFFFF
-  return "{0:X8}" -f [System.BitConverter]::ToUInt32([BitConverter]::GetBytes($crc32), 0)
+  return "{0:X8}" -f $crc32
 }
 
-#Example Usage
-$FilePath = "Path/to/File"
+# Example Usage
+$FilePath = "/Users/olaflange/_dev/source/ghcp_hackathon/_fork/copilot-hackathon-challenges/challenge-4/azure-overview.png"
 
 Write-Output "Calculating CRC32 checksum for file: $FilePath"
 
-if(Test-Path -Path $FilePath) {
+if (Test-Path -Path $FilePath) {
   $checksum = Get-CRC32Checksum -FilePath $FilePath
   Write-Output "CRC32 checksum: $checksum"
-  } else {
-    Write-Output "File Not Found: $FilePath"
-  }
+} else {
+  Write-Output "File Not Found: $FilePath"
+}
