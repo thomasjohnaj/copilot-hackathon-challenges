@@ -1,5 +1,19 @@
 #!/bin/bash
 
+# Pre-compute CRC32 table
+declare -a crc32_table
+for i in {0..255}; do
+    crc=$i
+    for _ in {0..7}; do
+        if (( crc & 1 )); then
+            crc=$(( (crc >> 1) ^ 0xEDB88320 ))
+        else
+            crc=$(( crc >> 1 ))
+        fi
+    done
+    crc32_table[$i]=$crc
+done
+
 function get_crc32_checksum {
     local file_path="$1"
     if [[ ! -f "$file_path" ]]; then
@@ -7,24 +21,11 @@ function get_crc32_checksum {
         return 1
     fi
 
-    local crc32_table=()
-    for i in {0..255}; do
-        local crc=$i
-        for _ in {0..7}; do
-            if (( crc & 1 )); then
-                crc=$(( (crc >> 1) ^ 0xEDB88320 ))
-            else
-                crc=$(( crc >> 1 ))
-            fi
-        done
-        crc32_table[$i]=$crc
-    done
-
     local crc32=0xFFFFFFFF
     while IFS= read -r hex; do
         local dec=$((16#$hex))
         crc32=$(( (crc32 >> 8) ^ crc32_table[((crc32 ^ dec) & 0xFF)] ))
-    done < <(xxd -p -c1 "$file_path")
+    done < <(xxd -p -l 1048576 -c1 "$file_path")
 
     crc32=$(( crc32 ^ 0xFFFFFFFF ))
     printf "%08X\n" $crc32
