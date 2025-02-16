@@ -54,7 +54,7 @@ You, a young sorcerer's apprentice, have been given the task to retrieve and dec
 ### GitHub Copilot Tips
 
 <a href="#">
-    <img src="../../Images/copilot-tips.jpg"  style="width: 830px" />
+    <img src="./Images/copilot-tips.jpg"  style="width: 830px" />
 </a>
 
 #### Use Copilot to improve efficiency
